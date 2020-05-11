@@ -26,7 +26,7 @@ namespace tetris
             foreach (Figure figure in f)
             {
                 figure.Hide();
-                figure.Move(Direction.RIGHT);
+                figure.Rotate();
                 figure.Draw();
             }
 

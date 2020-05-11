@@ -7,10 +7,8 @@ using System.Text;
 
 namespace tetris
 {
-    class Square
+    class Square : Figure
     {
-        Point[] points = new Point[4];
-
         public Square(int x, int y, char c)
         {
             points[0] = new Point(x, y, c);
@@ -19,12 +17,5 @@ namespace tetris
             points[3] = new Point(x + 1, y + 1, c);
         }
 
-        public void Draw()
-        {
-            foreach (Point point in points)
-            {
-                point.Draw();
-            }
-        }
     }
 }

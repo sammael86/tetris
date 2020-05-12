@@ -16,8 +16,10 @@ namespace tetris
 
         public void Move(Direction direction)
         {
+            Hide();
             foreach (Point p in points)
                 p.Move(direction);
+            Draw();
         }
 
         public void Hide()

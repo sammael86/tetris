@@ -8,13 +8,10 @@ namespace Tetris
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public char C { get; set; }
 
         internal void Draw()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(C);
-            Console.SetCursorPosition(0, 0);
+            DrawerProvider.Drawer.DrawPoint(X, Y);
         }
 
         internal void Move(Direction direction)
@@ -24,28 +21,26 @@ namespace Tetris
                 Direction.DOWN => Y++,
                 Direction.LEFT => X--,
                 Direction.RIGHT => X++,
+                Direction.UP => Y--,
                 _ => throw new NotImplementedException()
             });
         }
 
         internal void Hide()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(' ');
+            DrawerProvider.Drawer.HidePoint(X, Y);
         }
 
-        public Point(int a, int b, char sym)
+        public Point(int a, int b)
         {
             X = a;
             Y = b;
-            C = sym;
         }
 
         public Point(Point p)
         {
             X = p.X;
             Y = p.Y;
-            C = p.C;
         }
     }
 }

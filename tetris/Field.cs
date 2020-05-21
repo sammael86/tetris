@@ -13,24 +13,12 @@ namespace Tetris
             {
                 return _width;
             }
-            set
-            {
-                _width = value;
-                Console.SetWindowSize(value, Height);
-                Console.SetBufferSize(value, Height);
-            }
         }
         public static int Height
         {
             get
             {
                 return _height;
-            }
-            set
-            {
-                _height = value;
-                Console.SetWindowSize(Width, value);
-                Console.SetBufferSize(Width, value);
             }
         }
 
@@ -70,9 +58,9 @@ namespace Tetris
                 for (int i = 0; i < Width; i++)
                 {
                     if (_heap[j][i])
-                        Drawer.DrawPoint(i, j);
+                        DrawerProvider.Drawer.DrawPoint(i, j);
                     else
-                        Drawer.HidePoint(i, j);
+                        DrawerProvider.Drawer.HidePoint(i, j);
                 }
             }
         }

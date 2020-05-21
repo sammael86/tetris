@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collections", "Collections\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enums", "Enums\Enums.csproj", "{D0E99F64-BD0C-4723-AFAF-39BA94128B70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer", "Randomizer\Randomizer.csproj", "{FB2A8112-6E88-4215-877C-E057FB673ED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer", "Randomizer\Randomizer.csproj", "{FB2A8112-6E88-4215-877C-E057FB673ED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

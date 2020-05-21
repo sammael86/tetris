@@ -24,18 +24,5 @@ namespace Tetris
             else
                 return new Stick(_x, _y, _c);
         }
-
-        internal Figure TryGetNewFigure()
-        {
-            Figure fig = GetNewFigure();
-
-            foreach (Point p in fig.Points)
-            {
-                if (Field.CheckStrike(p))
-                    throw new Exception();
-            }
-
-            return fig;
-        }
     }
 }

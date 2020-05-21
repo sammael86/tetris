@@ -1,4 +1,8 @@
-﻿namespace Tetris
+﻿using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+
+namespace Tetris
 {
     abstract class Figure
     {
@@ -17,26 +21,35 @@
                 point.Hide();
         }
 
-        public abstract void Rotate(Point[] pList);
+        public abstract void Rotate();
 
         internal Result TryMove(Direction dir)
         {
             Hide();
-            var clone = Clone();
-            Move(clone, dir);
+            Move(dir);
 
-            var result = VerifyPosition(clone);
-            if (result == Result.SUCCESS)
-                Points = clone;
+            var result = VerifyPosition();
+            if (result != Result.SUCCESS)
+                Move(Reverse(dir));
 
             Draw();
-
             return result;
         }
 
-        private Result VerifyPosition(Point[] pList)
+        private Direction Reverse(Direction dir)
         {
-            foreach (var p in pList)
+            return dir switch
+            {
+                Direction.DOWN => Direction.UP,
+                Direction.LEFT => Direction.RIGHT,
+                Direction.RIGHT => Direction.LEFT,
+                Direction.UP => Direction.DOWN
+            };
+        }
+
+        private Result VerifyPosition()
+        {
+            foreach (var p in Points)
             {
                 if (p.Y >= Field.Height)
                     return Result.DOWN_BORDER_STRIKE;
@@ -49,38 +62,29 @@
             }
             return Result.SUCCESS;
         }
-
-        private void Move(Point[] pList, Direction dir)
+        private void Move(Direction dir)
         {
-            foreach (var p in pList)
+            foreach (var p in Points)
             {
                 p.Move(dir);
             }
         }
-
         internal Result TryRotate()
         {
             Hide();
-            var clone = Clone();
-            Rotate(clone);
+            Rotate();
 
-            var result = VerifyPosition(clone);
-            if (result == Result.SUCCESS)
-                Points = clone;
+            var result = VerifyPosition();
+            if (result != Result.SUCCESS)
+                Rotate();
 
             Draw();
 
             return result;
         }
-
-        private Point[] Clone()
+        internal bool IsOnTop()
         {
-            var newPoints = new Point[LENGTH];
-            for (int i = 0; i < LENGTH; i++)
-            {
-                newPoints[i] = new Point(Points[i]);
-            }
-            return newPoints;
+            return Points[0].Y == 0;
         }
     }
 }

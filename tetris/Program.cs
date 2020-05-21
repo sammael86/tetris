@@ -58,11 +58,27 @@ namespace Tetris
             {
                 Field.AddFigure(currentFigure);
                 Field.TryDeleteLines();
-                currentFigure = generator.TryGetNewFigure();
-                return true;
+
+                if (currentFigure.IsOnTop())
+                {
+                    WriteGameOver();
+                    timer.Elapsed -= Timer_Elapsed;
+                    return true;
+                }
+                else
+                {
+                    currentFigure = generator.GetNewFigure();
+                    return false;
+                }
             }
             else
                 return false;
+        }
+
+        private static void WriteGameOver()
+        {
+            Console.SetCursorPosition(Field.Width / 2 - 8, Field.Height / 2);
+            Console.WriteLine("G A M E  O V E R");
         }
 
         private static Result HandleKey(Figure fig, ConsoleKeyInfo key)

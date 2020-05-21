@@ -9,8 +9,10 @@ namespace tetris
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Field.WIDTH, Field.HEIGHT);
-            Console.SetBufferSize(Field.WIDTH, Field.HEIGHT);
+            Console.SetWindowSize(Field.Width, Field.HEIGHT);
+            Console.SetBufferSize(Field.Width, Field.HEIGHT);
+
+            Field.Width = 20;
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
             Figure currentFigure = generator.GetNewFigure();

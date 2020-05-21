@@ -6,7 +6,21 @@ namespace tetris
 {
     static class Field
     {
-        public const int WIDTH = 40;
+        public static int Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+                Console.SetWindowSize(Field._width, Field.HEIGHT);
+                Console.SetBufferSize(Field._width, Field.HEIGHT);
+            }
+        }
+
+        private static int _width = 40;
         public const int HEIGHT = 30;
     }
 }

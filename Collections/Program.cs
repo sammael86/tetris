@@ -1,5 +1,5 @@
 ﻿using System;
-using tetris;
+using Tetris;
 
 namespace Collections
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tetris
+namespace Tetris
 {
     internal class FigureGenerator
     {

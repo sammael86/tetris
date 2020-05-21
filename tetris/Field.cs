@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace tetris
+namespace Tetris
 {
     static class Field
     {
@@ -15,12 +15,26 @@ namespace tetris
             set
             {
                 _width = value;
-                Console.SetWindowSize(Field._width, Field.HEIGHT);
-                Console.SetBufferSize(Field._width, Field.HEIGHT);
+                Console.SetWindowSize(value, Field.Height);
+                Console.SetBufferSize(value, Field.Height);
+            }
+        }
+
+        public static int Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+                Console.SetWindowSize(Field.Width, value);
+                Console.SetBufferSize(Field.Width, value);
             }
         }
 
         private static int _width = 40;
-        public const int HEIGHT = 30;
+        private static int _height = 30;
     }
 }

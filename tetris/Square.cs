@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace tetris
+namespace Tetris
 {
     class Square : Figure
     {

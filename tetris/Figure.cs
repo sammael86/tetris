@@ -1,46 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tetris
+﻿namespace Tetris
 {
     abstract class Figure
     {
         const int LENGTH = 4;
-        protected Point[] points = new Point[4];
+        public Point[] Points = new Point[LENGTH];
 
         public void Draw()
         {
-            foreach (Point point in points)
+            foreach (Point point in Points)
                 point.Draw();
         }
 
         public void Hide()
         {
-            foreach (Point p in points)
-                p.Hide();
+            foreach (Point point in Points)
+                point.Hide();
         }
 
         public abstract void Rotate(Point[] pList);
 
-        internal void TryMove(Direction dir)
+        internal Result TryMove(Direction dir)
         {
             Hide();
             var clone = Clone();
             Move(clone, dir);
-            if (VerifyPosition(clone))
-                points = clone;
+
+            var result = VerifyPosition(clone);
+            if (result == Result.SUCCESS)
+                Points = clone;
+
             Draw();
+
+            return result;
         }
 
-        private bool VerifyPosition(Point[] pList)
+        private Result VerifyPosition(Point[] pList)
         {
             foreach (var p in pList)
             {
-                if (p.X < 0 || p.Y < 0 || p.X >= Field.Width || p.Y >= Field.Height)
-                    return false;
+                if (p.Y >= Field.Height)
+                    return Result.DOWN_BORDER_STRIKE;
+
+                if (p.X >= Field.Width || p.X < 0 || p.Y < 0)
+                    return Result.BORDER_STRIKE;
+
+                if (Field.CheckStrike(p))
+                    return Result.HEAP_STRIKE;
             }
-            return true;
+            return Result.SUCCESS;
         }
 
         private void Move(Point[] pList, Direction dir)
@@ -51,14 +58,19 @@ namespace Tetris
             }
         }
 
-        internal void TryRotate()
+        internal Result TryRotate()
         {
             Hide();
             var clone = Clone();
             Rotate(clone);
-            if (VerifyPosition(clone))
-                points = clone;
+
+            var result = VerifyPosition(clone);
+            if (result == Result.SUCCESS)
+                Points = clone;
+
             Draw();
+
+            return result;
         }
 
         private Point[] Clone()
@@ -66,7 +78,7 @@ namespace Tetris
             var newPoints = new Point[LENGTH];
             for (int i = 0; i < LENGTH; i++)
             {
-                newPoints[i] = new Point(points[i]);
+                newPoints[i] = new Point(Points[i]);
             }
             return newPoints;
         }
